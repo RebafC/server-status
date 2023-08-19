@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php
 
 declare(strict_types=1);
 
 require_once __DIR__.'/template.php';
+
 if (!file_exists('config.php')) {
     require_once __DIR__.'/install.php';
 } else {

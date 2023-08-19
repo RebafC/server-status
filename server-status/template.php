@@ -1,11 +1,21 @@
-<?php declare(strict_types=1);
+<?php
 
 declare(strict_types=1);
+
 $statuses = [_('Major outage'), _('Minor outage'), _('Planned maintenance'), _('Operational')];
 $classes = ['danger', 'warning', 'primary', 'success'];
 $icons = ['fa fa-times', 'fa fa-exclamation', 'fa fa-info', 'fa fa-check'];
-$some = [_('Some systems are experiencing major outages'), _('Some systems are experiencing minor outages'), _('Some systems are under maintenance')];
-$all = [_('Our systems are experiencing major outages.'), _('Our systems are experiencing minor outages'), _('Our systems are under maintenance'), _('All systems operational')];
+$some = [
+    _('Some systems are experiencing major outages'),
+    _('Some systems are experiencing minor outages'),
+    _('Some systems are under maintenance')
+];
+$all = [
+    _('Our systems are experiencing major outages.'),
+    _('Our systems are experiencing minor outages'),
+    _('Our systems are under maintenance'),
+    _('All systems operational')
+];
 $permissions = [_('Super admin'), _('Admin'), _('Editor')];
 $visibility = [_('Collapsed'), _('Expanded'), _('Expand on events')];
 

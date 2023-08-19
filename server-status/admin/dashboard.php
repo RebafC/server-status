@@ -1,10 +1,9 @@
-<?php declare(strict_types=1);
+<?php
 
 declare(strict_types=1);
 $offset = 0;
 if (isset($_GET['ajax'])) {
     $constellation->render_incidents(false, $_GET['offset'], 5);
-
     exit;
 }
 

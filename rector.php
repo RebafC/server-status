@@ -2,16 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of PHP CS Fixer.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 use Rector\CodeQuality\Rector\BooleanAnd\SimplifyEmptyArrayCheckRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
@@ -60,7 +50,6 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__.'/server-status/libs',
     ]);
 
-    // register a single rule
     $rectorConfig->rules(
         [
             InlineConstructorDefaultToPropertyRector::class,

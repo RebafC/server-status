@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 declare(strict_types=1);
 
@@ -6,7 +6,6 @@ require_once __DIR__.'/libs/parsedown/Parsedown.php';
 
 if (!file_exists('config.php')) {
     require_once __DIR__.'/template.php';
-
     require_once __DIR__.'/install.php';
 } elseif (isset($_GET['do'])) { // we can add other actions with $_GET['do'] later.
     // Fix for translation via _(). We need config.php first...

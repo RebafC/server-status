@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 declare(strict_types=1);
 function getToggle($variable): string
@@ -10,19 +10,12 @@ if (!file_exists('../config.php')) {
     header('Location: ../');
 } else {
     require_once __DIR__.'/../config.php';
-
     require_once __DIR__.'/../classes/constellation.php';
-
     require_once __DIR__.'/../classes/mailer.php';
-
     require_once __DIR__.'/../classes/notification.php';
-
     require_once __DIR__.'/../template.php';
-
     require_once __DIR__.'/../libs/parsedown/Parsedown.php';
-
     require_once __DIR__.'/../classes/queue.php';
-
     require_once __DIR__.'/../classes/db-class.php';
 }
 

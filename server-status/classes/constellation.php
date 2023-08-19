@@ -1,18 +1,12 @@
-<?php declare(strict_types=1);
-
-declare(strict_types=1);
+<?php
 
 declare(strict_types=1);
 
 // DIR Because of include problems
 require_once __DIR__.'/incident.php';
-
 require_once __DIR__.'/service.php';
-
 require_once __DIR__.'/service-group.php';
-
 require_once __DIR__.'/user.php';
-
 require_once __DIR__.'/token.php';
 
 /**
@@ -81,24 +75,28 @@ class constellation
     {
         global $mysqli;
 
-        // $query = $mysqli->query("SELECT id, name, description FROM services");
-        $query = $mysqli->query('SELECT services.id, services.name, services.description, services_groups.name as group_name FROM services LEFT JOIN services_groups ON services.group_id=services_groups.id ORDER BY services_groups.name ASC, services.name;');
+        $query = $mysqli->query(
+            'SELECT services.id, services.name, services.description, services_groups.name as group_name FROM services
+            LEFT JOIN services_groups ON services.group_id=services_groups.id
+            ORDER BY services_groups.name ASC, services.name;');
         $array = [];
         if ($query->num_rows) {
             $timestamp = time();
 
             while ($result = $query->fetch_assoc()) {
                 $id = $result['id'];
-                $sql = $mysqli->prepare('SELECT type FROM services_status INNER JOIN status ON services_status.status_id = status.id WHERE service_id = ? AND `time` <= ? AND (`end_time` >= ? OR `end_time`=0) ORDER BY `time` DESC LIMIT 1');
+                $sql = $mysqli->prepare(
+                    'SELECT type FROM services_status
+                    INNER JOIN status ON services_status.status_id = status.id
+                    WHERE service_id = ? AND `time` <= ? AND (`end_time` >= ? OR `end_time`=0)
+                    ORDER BY `time` DESC LIMIT 1');
 
                 $sql->bind_param('iii', $id, $timestamp, $timestamp);
                 $sql->execute();
                 $tmp = $sql->get_result();
-                if ($tmp->num_rows) {
-                    $array[] = new Service($result['id'], $result['name'], $result['description'], $result['group_name'], $tmp->fetch_assoc()['type']);
-                } else {
-                    $array[] = new Service($result['id'], $result['name'], $result['description'], $result['group_name']);
-                }
+                $array[] = ($tmp->num_rows)
+                    ? new Service($result['id'], $result['name'], $result['description'], $result['group_name'], $tmp->fetch_assoc()['type'])
+                    : new Service($result['id'], $result['name'], $result['description'], $result['group_name']);
             }
 
             if ($heading) {
