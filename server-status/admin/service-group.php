@@ -40,14 +40,14 @@ if (!$boolEdit) {
     <h2><?php echo _('Add new service group'); ?></h2>
 </div>
 <?php
-    $form_url = WEB_URL.'/admin/?do=new-service-group&amp;new=group';
+    $form_url = WEB_URL . '/admin/?do=new-service-group&amp;new=group';
 } else {
     Template::render_header(_('Edit service group'), true); ?>
 	<div class="text-center">
 	    <h2><?php echo _('Edit service group'); ?></h2>
 	</div>
 	<?php
-  $form_url = WEB_URL.'/admin/?do=edit-service-group&amp;edit&amp;id='.$group_id;
+  $form_url = WEB_URL . '/admin/?do=edit-service-group&amp;edit&amp;id=' . $group_id;
 }
 ?>
 
@@ -89,9 +89,9 @@ $visibility_id = empty($visibility_id_value) ? null : $visibility_id_value;
 // $visibilitys = Service::get_groups();
 foreach ($visibility as $key => $value) {
     if ($visibility_id === $key) {
-        echo '<option value="'.$key.'" selected>'.$value.'</option>';
+        echo '<option value="' . $key . '" selected>' . $value . '</option>';
     } else {
-        echo '<option value="'.$key.'">'.$value.'</option>';
+        echo '<option value="' . $key . '">' . $value . '</option>';
     }
 }
 ?>
@@ -100,7 +100,7 @@ foreach ($visibility as $key => $value) {
 	</div>
 	<?php
 if ($boolEdit) {
-    echo '<input type="hidden" id="id" name="id" value="'.$group_id.'">';
+    echo '<input type="hidden" id="id" name="id" value="' . $group_id . '">';
 }
 ?>
 	<button type="submit" class="btn btn-primary pull-right"><?php

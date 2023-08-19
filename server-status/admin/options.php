@@ -9,14 +9,21 @@ function getToggle($variable): string
 if (!file_exists('../config.php')) {
     header('Location: ../');
 } else {
-    require_once __DIR__.'/../config.php';
-    require_once __DIR__.'/../classes/constellation.php';
-    require_once __DIR__.'/../classes/mailer.php';
-    require_once __DIR__.'/../classes/notification.php';
-    require_once __DIR__.'/../template.php';
-    require_once __DIR__.'/../libs/parsedown/Parsedown.php';
-    require_once __DIR__.'/../classes/queue.php';
-    require_once __DIR__.'/../classes/db-class.php';
+    require_once __DIR__ . '/../config.php';
+
+    require_once __DIR__ . '/../classes/constellation.php';
+
+    require_once __DIR__ . '/../classes/mailer.php';
+
+    require_once __DIR__ . '/../classes/notification.php';
+
+    require_once __DIR__ . '/../template.php';
+
+    require_once __DIR__ . '/../libs/parsedown/Parsedown.php';
+
+    require_once __DIR__ . '/../classes/queue.php';
+
+    require_once __DIR__ . '/../classes/db-class.php';
 }
 
 $db = new SSDB();
@@ -67,7 +74,7 @@ if ([] !== $_POST) {
       $notifyUpdates_status = false;
     }*/
     // TODO - Reload page to prevent showing old values! or update variables being displayed
-    header('Location: '.$uri = $_SERVER['REQUEST_URI']);
+    header('Location: ' . $uri = $_SERVER['REQUEST_URI']);
     // TODO - The code below will not happen ...
 
     /*define("NAME", $db->getSetting($mysqli,"name"));

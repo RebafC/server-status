@@ -5,9 +5,9 @@ declare(strict_types=1);
 if (!file_exists('../config.php')) {
     header('Location: ../');
 } else {
-    require_once __DIR__.'/../config.php';
+    require_once __DIR__ . '/../config.php';
 
-    require_once __DIR__.'/../classes/constellation.php';
+    require_once __DIR__ . '/../classes/constellation.php';
     header('Cache-Control: no-cache');
     header('Content-type: application/json');
 

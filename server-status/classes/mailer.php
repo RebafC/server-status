@@ -8,10 +8,10 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 // TODO Any other way to handle this include? Should we just do the include form each index.php?
 if (file_exists('libs/php_idn/idna.php')) {
-    require_once __DIR__.'/libs/php_idn/idna.php';
+    require_once __DIR__ . '/libs/php_idn/idna.php';
 } else {
     // Include for Admin section
-    require_once __DIR__.'/../libs/php_idn/idna.php';
+    require_once __DIR__ . '/../libs/php_idn/idna.php';
 }
 
 class mailer
@@ -38,17 +38,17 @@ class mailer
         if ($this->is_utf8($to)) {
             $elements = explode('@', $to);
             $domainpart = EncodePunycodeIDN(array_pop($elements));  // Convert domain part to ascii
-            $to = $elements[0].'@'.$domainpart;  // Reassemble tge full email address
+            $to = $elements[0] . '@' . $domainpart;  // Reassemble tge full email address
         }
 
         // Send using PHP mailer if it is enabled
         if (PHP_MAILER) {
-            require_once PHP_MAILER_PATH.'/Exception.php'; // Exception class.
+            require_once PHP_MAILER_PATH . '/Exception.php'; // Exception class.
 
-            require_once PHP_MAILER_PATH.'/PHPMailer.php'; // The main PHPMailer class.
+            require_once PHP_MAILER_PATH . '/PHPMailer.php'; // The main PHPMailer class.
 
             if (PHP_MAILER_SMTP) {
-                require_once PHP_MAILER_PATH.'/SMTP.php';  // SMTP class, needed if you want to use SMTP.
+                require_once PHP_MAILER_PATH . '/SMTP.php';  // SMTP class, needed if you want to use SMTP.
             }
 
             $phpMailer = new PHPMailer(false);
@@ -91,10 +91,10 @@ class mailer
         }
 
         // Use standard PHP mail() function
-        $headers = sprintf('Content-Type: %s; "charset=utf-8" ', $content_type).PHP_EOL;
-        $headers .= 'MIME-Version: 1.0 '.PHP_EOL;
-        $headers .= 'From: '.MAILER_NAME.' <'.MAILER_ADDRESS.'>'.PHP_EOL;
-        $headers .= 'Reply-To: '.MAILER_NAME.' <'.MAILER_ADDRESS.'>'.PHP_EOL;
+        $headers = sprintf('Content-Type: %s; "charset=utf-8" ', $content_type) . PHP_EOL;
+        $headers .= 'MIME-Version: 1.0 ' . PHP_EOL;
+        $headers .= 'From: ' . MAILER_NAME . ' <' . MAILER_ADDRESS . '>' . PHP_EOL;
+        $headers .= 'Reply-To: ' . MAILER_NAME . ' <' . MAILER_ADDRESS . '>' . PHP_EOL;
 
         mail($to, $subject, $message, $headers);
 
@@ -116,7 +116,7 @@ class mailer
     {
         // TODO - Handle idn/punycode domain names without being dependent on PHP native libs.
         $domain = explode('@', $email);
-        $domain = EncodePunycodeIDN(array_pop($domain).'.');  // Add dot at end of domain to avoid local domain lookups
+        $domain = EncodePunycodeIDN(array_pop($domain) . '.');  // Add dot at end of domain to avoid local domain lookups
         syslog(1, $domain);
 
         return checkdnsrr($domain, 'MX');

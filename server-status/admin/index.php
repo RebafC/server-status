@@ -5,14 +5,21 @@ declare(strict_types=1);
 if (!file_exists('../config.php')) {
     header('Location: ../');
 } else {
-    require_once __DIR__.'/../config.php';
-    require_once __DIR__.'/../classes/constellation.php';
-    require_once __DIR__.'/../classes/mailer.php';
-    require_once __DIR__.'/../classes/notification.php';
-    require_once __DIR__.'/../template.php';
-    require_once __DIR__.'/../libs/parsedown/Parsedown.php';
-    require_once __DIR__.'/../classes/queue.php';
-    require_once __DIR__.'/../classes/db-class.php';
+    require_once __DIR__ . '/../config.php';
+
+    require_once __DIR__ . '/../classes/constellation.php';
+
+    require_once __DIR__ . '/../classes/mailer.php';
+
+    require_once __DIR__ . '/../classes/notification.php';
+
+    require_once __DIR__ . '/../template.php';
+
+    require_once __DIR__ . '/../libs/parsedown/Parsedown.php';
+
+    require_once __DIR__ . '/../classes/queue.php';
+
+    require_once __DIR__ . '/../classes/db-class.php';
 
     $db = new SSDB();
     define('NAME', $db->getSetting($mysqli, 'name'));
@@ -60,16 +67,16 @@ if (!file_exists('../config.php')) {
 
     if (!isset($_SESSION['user'])) {
         if (isset($_GET['do']) && 'lost-password' === $_GET['do']) {
-            require_once __DIR__.'/lost-password.php';
+            require_once __DIR__ . '/lost-password.php';
         } elseif (isset($_GET['do']) && 'change-email' === $_GET['do']) {
             $user_pwd = new User($_GET['id']);
             $user_pwd->change_email();
 
-            require_once __DIR__.'/login-form.php';
+            require_once __DIR__ . '/login-form.php';
         } else {
             User::login();
 
-            require_once __DIR__.'/login-form.php';
+            require_once __DIR__ . '/login-form.php';
         }
     } else {
         $user = new User($_SESSION['user']);
@@ -86,34 +93,34 @@ if (!file_exists('../config.php')) {
 
                 // no break
             case 'user':
-                require_once __DIR__.'/user.php';
+                require_once __DIR__ . '/user.php';
 
                 break;
 
             case 'settings':
-                require_once __DIR__.'/settings.php';
+                require_once __DIR__ . '/settings.php';
 
                 break;
 
             case 'new-user':
-                require_once __DIR__.'/new-user.php';
+                require_once __DIR__ . '/new-user.php';
 
                 break;
 
             case 'new-service':
             case 'edit-service':
-                require_once __DIR__.'/service.php';
+                require_once __DIR__ . '/service.php';
 
                 break;
 
             case 'new-service-group':
             case 'edit-service-group':
-                require_once __DIR__.'/service-group.php';
+                require_once __DIR__ . '/service-group.php';
 
                 break;
 
             case 'options':
-                require_once __DIR__.'/options.php';
+                require_once __DIR__ . '/options.php';
 
                 break;
 
@@ -123,7 +130,7 @@ if (!file_exists('../config.php')) {
                 break;
 
             default:
-                require_once __DIR__.'/dashboard.php';
+                require_once __DIR__ . '/dashboard.php';
 
                 break;
         }

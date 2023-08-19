@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 try {
     $displayed_user = new User($id);
 } catch (Exception $exception) {
-    header('Location: '.WEB_URL.'/admin/?do=user');
+    header('Location: ' . WEB_URL . '/admin/?do=user');
 }
 
 if (isset($_POST['password'])) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
- /**
+/**
  * Finds the character code for a UTF-8 character: like ord() but for UTF-8.
  *
  * @author Nicolas Thouvenin <nthouvenin@gmail.com>
@@ -80,7 +80,7 @@ function EncodePunycodeIDN($value)
     if (count($sub_domain) > 1) {
         $sub_result = '';
         foreach ($sub_domain as $sub_value) {
-            $sub_result .= '.'.EncodePunycodeIDN($sub_value);
+            $sub_result .= '.' . EncodePunycodeIDN($sub_value);
         }
 
         return substr($sub_result, 1);
@@ -218,7 +218,7 @@ function DecodePunycodeIDN($value)
     if (count($sub_domain) > 1) {
         $sub_result = '';
         foreach ($sub_domain as $sub_value) {
-            $sub_result .= '.'.DecodePunycodeIDN($sub_value);
+            $sub_result .= '.' . DecodePunycodeIDN($sub_value);
         }
 
         return substr($sub_result, 1);
@@ -320,7 +320,7 @@ function DecodePunycodeIDN($value)
             $output,
             $i,
             0,
-            html_entity_decode('&#'.$n.';', ENT_NOQUOTES, 'UTF-8')
+            html_entity_decode('&#' . $n . ';', ENT_NOQUOTES, 'UTF-8')
         );
         ++$i;
     }

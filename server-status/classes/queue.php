@@ -118,7 +118,7 @@ class queue
             $query .= sprintf($sub_query, $this->task_id, 1, $value, 0, $seperator);
         }
 
-        $sql = 'INSERT INTO queue_notify (task_id, status, subscriber_id, retries) VALUES '.$query;
+        $sql = 'INSERT INTO queue_notify (task_id, status, subscriber_id, retries) VALUES ' . $query;
 
         $mysqli->query($sql);
 

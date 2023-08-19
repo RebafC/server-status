@@ -4,6 +4,7 @@ declare(strict_types=1);
 $offset = 0;
 if (isset($_GET['ajax'])) {
     $constellation->render_incidents(false, $_GET['offset'], 5);
+
     exit;
 }
 
@@ -89,7 +90,7 @@ foreach ($services as $service) {
   $selected_status = $_POST['type'] ?? 2;
 
 foreach ($statuses as $key => $value) {
-    echo '<option value="'.$key.'"'.(($key === $selected_status) ? ' selected' : '').'>'.$value.'</option>';
+    echo '<option value="' . $key . '"' . (($key === $selected_status) ? ' selected' : '') . '>' . $value . '</option>';
 }
 ?>
           </select>

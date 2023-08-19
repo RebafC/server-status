@@ -40,7 +40,7 @@ class telegram
         $data_check_arr = [];
         foreach ($auth_data as $key => $value) {
             // $data_check_arr[] = $key . '=' . $value;
-            $data_check_arr[] = $key.'='.str_replace('https:/t', 'https://t', $value);
+            $data_check_arr[] = $key . '=' . str_replace('https:/t', 'https://t', $value);
         }
 
         sort($data_check_arr);

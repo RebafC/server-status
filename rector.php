@@ -43,11 +43,11 @@ use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-        __DIR__.'/server-status',
-        __DIR__.'/server-status/admin',
-        __DIR__.'/server-status/api',
-        __DIR__.'/server-status/classes',
-        __DIR__.'/server-status/libs',
+        __DIR__ . '/server-status',
+        __DIR__ . '/server-status/admin',
+        __DIR__ . '/server-status/api',
+        __DIR__ . '/server-status/classes',
+        __DIR__ . '/server-status/libs',
     ]);
 
     $rectorConfig->rules(

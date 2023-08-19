@@ -2,14 +2,20 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/template.php';
-require_once __DIR__.'/config.php';
-require_once __DIR__.'/classes/constellation.php';
-require_once __DIR__.'/classes/subscriber.php';
-require_once __DIR__.'/classes/subscriptions.php';
-require_once __DIR__.'/classes/mailer.php';
+require_once __DIR__ . '/template.php';
+
+require_once __DIR__ . '/config.php';
+
+require_once __DIR__ . '/classes/constellation.php';
+
+require_once __DIR__ . '/classes/subscriber.php';
+
+require_once __DIR__ . '/classes/subscriptions.php';
+
+require_once __DIR__ . '/classes/mailer.php';
+
 // require_once("libs/php_idn/idna.php");
-require_once __DIR__.'/classes/db-class.php';
+require_once __DIR__ . '/classes/db-class.php';
 
 $db = new SSDB();
 define('NAME', $db->getSetting($mysqli, 'name'));
@@ -92,21 +98,21 @@ if (isset($_GET['new'])) {
         $subscriber->typeID = 2; // Email
         $boolUserExist = $subscriber->check_userid_exist();
 
-        $url = WEB_URL.'/index.php?do=manage&token='.$subscriber->token;
+        $url = WEB_URL . '/index.php?do=manage&token=' . $subscriber->token;
 
         if (!$boolUserExist) {
             // Create a new subscriber as it does not exist
             $subscriber->add($subscriber->typeID, $_POST['emailaddress']);
-            $url = WEB_URL.'/index.php?do=manage&token='.$subscriber->token;
+            $url = WEB_URL . '/index.php?do=manage&token=' . $subscriber->token;
             // Needed again after adding subscriber since token did not exist before add
-            $msg = sprintf(_('Thank you for registering to receive status updates via email.</br></br> Click on the following link to confirm and manage your subcription: <a href="%s">%s</a>. New subscriptions must be confirmed within 2 hours'), $url, NAME.' - '._('Validate subscription'));
+            $msg = sprintf(_('Thank you for registering to receive status updates via email.</br></br> Click on the following link to confirm and manage your subcription: <a href="%s">%s</a>. New subscriptions must be confirmed within 2 hours'), $url, NAME . ' - ' . _('Validate subscription'));
         } elseif (!$subscriber->active) {
             // Subscriber is registered, but has not been activated yet...
-            $msg = sprintf(_('Thank you for registering to receive status updates via email.</br></br> Click on the following link to confirm and manage your subcription: <a href="%s">%s</a>. New subscriptions must be confirmed within 2 hours'), $url, NAME.' - '._('Validate subscription'));
+            $msg = sprintf(_('Thank you for registering to receive status updates via email.</br></br> Click on the following link to confirm and manage your subcription: <a href="%s">%s</a>. New subscriptions must be confirmed within 2 hours'), $url, NAME . ' - ' . _('Validate subscription'));
             $subscriber->activate($subscriber->id);
         } else {
             // subscriber is registered and active
-            $msg = sprintf(_('Click on the following link to update your existing subscription:  <a href="%s">%s</a>'), $url, NAME.' - '._('Manage subscription'));
+            $msg = sprintf(_('Click on the following link to update your existing subscription:  <a href="%s">%s</a>'), $url, NAME . ' - ' . _('Manage subscription'));
             $subscriber->update($subscriber->id);
         }
 
@@ -116,7 +122,7 @@ if (isset($_GET['new'])) {
         $constellation->render_success($header, $message, true, WEB_URL, _('Go back'));
 
         // Send email about new registration
-        $subject = _('Email subscription registered').' - '.NAME;
+        $subject = _('Email subscription registered') . ' - ' . NAME;
         $mailer->send_mail($_POST['emailaddress'], $subject, $msg);
 
         $boolRegistered = true;
@@ -125,7 +131,7 @@ if (isset($_GET['new'])) {
     // Add a new email subscriber - display form
     if (isset($_GET['new']) && (!$boolRegistered)) {
         if ('' !== $message) {
-            echo '<p class="alert alert-danger">'.$message.'</p>';
+            echo '<p class="alert alert-danger">' . $message . '</p>';
         }
 
         $strPostedEmail = $_POST['emailaddress'] ?? '';

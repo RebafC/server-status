@@ -233,7 +233,7 @@ class LocaleNegotiator
      */
     public function __construct($default_language)
     {
-        $tmp = glob(__DIR__.'/../locale/*', GLOB_ONLYDIR);
+        $tmp = glob(__DIR__ . '/../locale/*', GLOB_ONLYDIR);
         $this->default_language = $default_language;
         // Works only if the server supports the locale
         // This basically means $accepted_langs[<lang_code>] = "<lang name>";

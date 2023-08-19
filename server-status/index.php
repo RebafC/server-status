@@ -2,27 +2,28 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/libs/parsedown/Parsedown.php';
+require_once __DIR__ . '/libs/parsedown/Parsedown.php';
 
 if (!file_exists('config.php')) {
-    require_once __DIR__.'/template.php';
-    require_once __DIR__.'/install.php';
+    require_once __DIR__ . '/template.php';
+
+    require_once __DIR__ . '/install.php';
 } elseif (isset($_GET['do'])) { // we can add other actions with $_GET['do'] later.
     // Fix for translation via _(). We need config.php first...
-    require_once __DIR__.'/config.php';
+    require_once __DIR__ . '/config.php';
 
-    require_once __DIR__.'/template.php';
+    require_once __DIR__ . '/template.php';
 
     switch ($_GET['do']) {
         case 'subscriptions':
-            require_once __DIR__.'/subscriptions.php';
+            require_once __DIR__ . '/subscriptions.php';
 
             break;
 
         case 'email_subscription':
         case 'manage':
         case 'unsubscribe':
-            require_once __DIR__.'/email_subscriptions.php';
+            require_once __DIR__ . '/email_subscriptions.php';
 
             break;
 
@@ -33,13 +34,13 @@ if (!file_exists('config.php')) {
             break;
     }
 } else {
-    require_once __DIR__.'/config.php';
+    require_once __DIR__ . '/config.php';
 
-    require_once __DIR__.'/template.php';
+    require_once __DIR__ . '/template.php';
 
-    require_once __DIR__.'/classes/constellation.php';
+    require_once __DIR__ . '/classes/constellation.php';
 
-    require_once __DIR__.'/classes/db-class.php';
+    require_once __DIR__ . '/classes/db-class.php';
 
     $db = new SSDB();
     define('NAME', $db->getSetting($mysqli, 'name'));

@@ -15,7 +15,7 @@ class SSDB
 
     public function getSetting($conn, string $setting)
     {
-        $sql = "SELECT value FROM settings WHERE setting='".$setting."'";
+        $sql = "SELECT value FROM settings WHERE setting='" . $setting . "'";
         $result = $conn->query($sql);
 
         if (1 === $result->num_rows) {
@@ -29,7 +29,7 @@ class SSDB
 
     public function setSetting($conn, string $settingname, string $settingvalue)
     {
-        $sql = "INSERT INTO settings (setting,value) VALUES ('".$settingname."','".$settingvalue."');";
+        $sql = "INSERT INTO settings (setting,value) VALUES ('" . $settingname . "','" . $settingvalue . "');";
         if (true === $conn->query($sql)) {
             return true;
         }
@@ -39,7 +39,7 @@ class SSDB
 
     public function deleteSetting($conn, string $settingname)
     {
-        $sql = 'DELETE FROM settings WHERE setting="'.$settingname.'";';
+        $sql = 'DELETE FROM settings WHERE setting="' . $settingname . '";';
         if (true === $conn->query($sql)) {
             return true;
         }

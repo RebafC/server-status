@@ -8,13 +8,13 @@ $icons = ['fa fa-times', 'fa fa-exclamation', 'fa fa-info', 'fa fa-check'];
 $some = [
     _('Some systems are experiencing major outages'),
     _('Some systems are experiencing minor outages'),
-    _('Some systems are under maintenance')
+    _('Some systems are under maintenance'),
 ];
 $all = [
     _('Our systems are experiencing major outages.'),
     _('Our systems are experiencing minor outages'),
     _('Our systems are under maintenance'),
-    _('All systems operational')
+    _('All systems operational'),
 ];
 $permissions = [_('Super admin'), _('Admin'), _('Editor')];
 $visibility = [_('Collapsed'), _('Expanded'), _('Expand on events')];
@@ -47,15 +47,15 @@ class template
                     // If subscriber is not logged on, display subscriber menus
                     if ((!isset($_SESSION['subscriber_valid'])) || false === $_SESSION['subscriber_valid']) {
                         $strSubsMenu .= '<li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><span class="glyphicon glyphicon-th"></span>&nbsp;'._('Subscribe').'</a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><span class="glyphicon glyphicon-th"></span>&nbsp;' . _('Subscribe') . '</a>
                                     <ul class="dropdown-menu ">';
 
                         if (SUBSCRIBE_EMAIL) {
-                            $strSubsMenu .= '<li><a href="?do=email_subscription&amp;new=1"><span class="glyphicon glyphicon-envelope"></span>&nbsp;'._('Subscribe via email').'</a></li>';
+                            $strSubsMenu .= '<li><a href="?do=email_subscription&amp;new=1"><span class="glyphicon glyphicon-envelope"></span>&nbsp;' . _('Subscribe via email') . '</a></li>';
                         }
 
                         if (SUBSCRIBE_TELEGRAM) {
-                            $strSubsMenu .= '<li><a href="#"><script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="'.TG_BOT_USERNAME.'" data-size="small" data-userpic="false" data-auth-url="'.WEB_URL.'/telegram_check.php" data-request-access="write"></script></a></li>';
+                            $strSubsMenu .= '<li><a href="#"><script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="' . TG_BOT_USERNAME . '" data-size="small" data-userpic="false" data-auth-url="' . WEB_URL . '/telegram_check.php" data-request-access="write"></script></a></li>';
                         }
 
                         $strSubsMenu .= '</ul>';
@@ -64,8 +64,8 @@ class template
 
                 // If subscriber is logged on, display unsub and logoff menu points
                 if ((isset($_SESSION['subscriber_valid'])) && $_SESSION['subscriber_valid']) {
-                    $strSubsMenu .= '<li><a href="?do=subscriptions">'._('Subscriptions').'</a></li>';
-                    $strSubsMenu .= '<li><a href="'.WEB_URL.'/index.php?subscriber_logout=1">'._('Logout').'</a></li>';
+                    $strSubsMenu .= '<li><a href="?do=subscriptions">' . _('Subscriptions') . '</a></li>';
+                    $strSubsMenu .= '<li><a href="' . WEB_URL . '/index.php?subscriber_logout=1">' . _('Logout') . '</a></li>';
                 }
 
                 $strSubsMenu .= '</ul>';
@@ -83,7 +83,7 @@ class template
              }
             ?>
         <meta charset="utf-8">
-        <title><?php echo $page_name.' - '.NAME; ?></title>
+        <title><?php echo $page_name . ' - ' . NAME; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Current service status for <?php echo NAME; ?> can be found here as well as incident history.">
         <link rel="shortcut icon" href="<?php echo WEB_URL; ?>/favicon.ico" type="image/png">
@@ -122,7 +122,7 @@ class template
               <a class="navbar-brand" href="<?php echo WEB_URL; ?>"><a class="navbar-brand" href="<?php echo WEB_URL; ?>/admin"><img src="<?php if (strlen(CUSTOM_LOGO_URL) > 1) {
                   echo CUSTOM_LOGO_URL;
               } else {
-                  echo WEB_URL.'/img/logo_white.png';
+                  echo WEB_URL . '/img/logo_white.png';
               } ?>" alt="logo" class="menu-logo" style="height:50px;"></a>
             </div>
             <div class="navbar-left hidden-xs">
@@ -145,7 +145,7 @@ class template
       <html lang="en">
       <head>
         <meta charset="utf-8">
-        <title><?php echo $page_name.' - '.NAME; ?></title>
+        <title><?php echo $page_name . ' - ' . NAME; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="<?php echo WEB_URL; ?>/favicon.ico" type="image/png">
         <link rel="stylesheet" href="<?php echo WEB_URL; ?>/css/bootstrap.min.css">
@@ -182,7 +182,7 @@ class template
               <a class="navbar-brand" href="<?php echo WEB_URL; ?>/admin"><img src="<?php if (strlen(CUSTOM_LOGO_URL) > 1) {
                   echo CUSTOM_LOGO_URL;
               } else {
-                  echo WEB_URL.'/img/logo_white.png';
+                  echo WEB_URL . '/img/logo_white.png';
               } ?>" alt="logo" class="menu-logo" width="50" height="50"></a>
             </div>
             <div class="navbar-collapse collapse navbar-right navbar-admin">
@@ -239,11 +239,11 @@ class template
       <div class="container">
         <div class="row centered">
           <div class="col-md-4 text-left"><a href="https://github.com/server-status-project/server-status/graphs/contributors" target="_blank">Copyright © <?php echo date('Y'); ?> Server Status Project Contributors </a><?php if (strlen(COPYRIGHT_TEXT) > 1) {
-              echo ' and '.COPYRIGHT_TEXT;
+              echo ' and ' . COPYRIGHT_TEXT;
           } ?></div>
           <div class="col-md-4 text-center">
             <div class="btn-group dropup">
-              <button type="button" class="btn btn-primary"><?php echo '<img src="'.WEB_URL.'/locale/'.$_SESSION['locale'].'/flag.png" alt="'.$lang_names[$_SESSION['locale']].'">'.$lang_names[$_SESSION['locale']]; ?></button>
+              <button type="button" class="btn btn-primary"><?php echo '<img src="' . WEB_URL . '/locale/' . $_SESSION['locale'] . '/flag.png" alt="' . $lang_names[$_SESSION['locale']] . '">' . $lang_names[$_SESSION['locale']]; ?></button>
               <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="caret"></span>
                 <span class="sr-only"><?php echo _('Toggle Dropdown'); ?></span>
@@ -251,7 +251,7 @@ class template
               <div class="dropdown-menu">
                 <?php
                 foreach ($lang_names as $key => $value) {
-                    echo '<a href="?lang='.$key.'"><img src="'.WEB_URL.'/locale/'.$key.'/flag.png" alt="'.$value.'">'.$value.'</a>';
+                    echo '<a href="?lang=' . $key . '"><img src="' . WEB_URL . '/locale/' . $key . '/flag.png" alt="' . $value . '">' . $value . '</a>';
                 }
         ?>
                 <hr role="separator" class="divider">

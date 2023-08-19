@@ -3,11 +3,15 @@
 declare(strict_types=1);
 
 // DIR Because of include problems
-require_once __DIR__.'/incident.php';
-require_once __DIR__.'/service.php';
-require_once __DIR__.'/service-group.php';
-require_once __DIR__.'/user.php';
-require_once __DIR__.'/token.php';
+require_once __DIR__ . '/incident.php';
+
+require_once __DIR__ . '/service.php';
+
+require_once __DIR__ . '/service-group.php';
+
+require_once __DIR__ . '/user.php';
+
+require_once __DIR__ . '/token.php';
 
 /**
  * Facade class.
@@ -37,15 +41,15 @@ class constellation
         $ajax = isset($_GET['ajax']);
 
         if ($future && (is_countable($incidents['incidents']) ? count($incidents['incidents']) : 0) && !$ajax) {
-            echo '<h3>'._('Planned maintenance').'</h3>';
+            echo '<h3>' . _('Planned maintenance') . '</h3>';
         } elseif ((is_countable($incidents['incidents']) ? count($incidents['incidents']) : 0) && !$ajax) {
             if ($offset) {
-                echo '<noscript><div class="centered"><a href="'.WEB_URL.'/?offset='.($offset - $limit).'&timestamp='.$timestamp.'" class="btn btn-default">'._('Back').'</a></div></noscript>';
+                echo '<noscript><div class="centered"><a href="' . WEB_URL . '/?offset=' . ($offset - $limit) . '&timestamp=' . $timestamp . '" class="btn btn-default">' . _('Back') . '</a></div></noscript>';
             }
 
-            echo '<h3>'._('Past incidents').'</h3>';
+            echo '<h3>' . _('Past incidents') . '</h3>';
         } elseif (!$future && !$ajax) {
-            echo '<h3>'._('No incidents').'</h3>';
+            echo '<h3>' . _('No incidents') . '</h3>';
         }
 
         $show = !$future && $incidents['more'];
@@ -58,7 +62,7 @@ class constellation
             }
 
             if ($show) {
-                echo '<div class="centered"><a href="'.WEB_URL.'/?offset='.$offset.'&timestamp='.$timestamp.'" id="loadmore" class="btn btn-default">'._('Load more').'</a></div>';
+                echo '<div class="centered"><a href="' . WEB_URL . '/?offset=' . $offset . '&timestamp=' . $timestamp . '" id="loadmore" class="btn btn-default">' . _('Load more') . '</a></div>';
             }
         }
     }
@@ -78,7 +82,8 @@ class constellation
         $query = $mysqli->query(
             'SELECT services.id, services.name, services.description, services_groups.name as group_name FROM services
             LEFT JOIN services_groups ON services.group_id=services_groups.id
-            ORDER BY services_groups.name ASC, services.name;');
+            ORDER BY services_groups.name ASC, services.name;'
+        );
         $array = [];
         if ($query->num_rows) {
             $timestamp = time();
@@ -89,7 +94,8 @@ class constellation
                     'SELECT type FROM services_status
                     INNER JOIN status ON services_status.status_id = status.id
                     WHERE service_id = ? AND `time` <= ? AND (`end_time` >= ? OR `end_time`=0)
-                    ORDER BY `time` DESC LIMIT 1');
+                    ORDER BY `time` DESC LIMIT 1'
+                );
 
                 $sql->bind_param('iii', $id, $timestamp, $timestamp);
                 $sql->execute();
@@ -143,7 +149,14 @@ class constellation
 
         $operator = ($future) ? '>=' : '<=';
         ++$limit;
-        $sql = $mysqli->prepare(sprintf('SELECT users.id, status.type, status.title, status.text, status.time, status.end_time, users.username, status.id as status_id FROM status INNER JOIN users ON user_id=users.id WHERE `time` %s ? AND `end_time` %s ?  OR (`time`<=? AND `end_time` %s ? ) ORDER BY `time` DESC LIMIT ? OFFSET ?', $operator, $operator, $operator));
+        $sql = $mysqli->prepare(
+            sprintf(
+                'SELECT users.id, status.type, status.title, status.text, status.time, status.end_time, users.username, status.id as status_id FROM status INNER JOIN users ON user_id=users.id WHERE `time` %s ? AND `end_time` %s ?  OR (`time`<=? AND `end_time` %s ? ) ORDER BY `time` DESC LIMIT ? OFFSET ?',
+                $operator,
+                $operator,
+                $operator
+            )
+        );
         $sql->bind_param('iiiiii', $timestamp, $timestamp, $timestamp, $timestamp, $limit, $offset);
         $sql->execute();
 
@@ -208,13 +221,13 @@ class constellation
     public function render_alert(string $alert_type, string $header, string $message, $show_link = false, $url = null, $link_text = null): void
     {
         echo '<div><h1></h1>
-         <div class="alert '.$alert_type.'" role="alert">
-         <h4 class="alert-heading">'.$header.'</h4>
+         <div class="alert ' . $alert_type . '" role="alert">
+         <h4 class="alert-heading">' . $header . '</h4>
          <hr>
-         <p class="mb-0">'.$message.'</p>
+         <p class="mb-0">' . $message . '</p>
          </div></div>';
         if ($show_link) {
-            echo '<div class="clearfix"><a href="'.$url.'" class="btn btn-success" role="button">'.$link_text.'</a></div>';
+            echo '<div class="clearfix"><a href="' . $url . '" class="btn btn-success" role="button">' . $link_text . '</a></div>';
         }
     }
 }

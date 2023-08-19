@@ -2,12 +2,17 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/config.php';
-require_once __DIR__.'/template.php';
-require_once __DIR__.'/classes/constellation.php';
-require_once __DIR__.'/classes/subscriptions.php';
-require_once __DIR__.'/classes/telegram.php';
-require_once __DIR__.'/classes/db-class.php';
+require_once __DIR__ . '/config.php';
+
+require_once __DIR__ . '/template.php';
+
+require_once __DIR__ . '/classes/constellation.php';
+
+require_once __DIR__ . '/classes/subscriptions.php';
+
+require_once __DIR__ . '/classes/telegram.php';
+
+require_once __DIR__ . '/classes/db-class.php';
 
 $db = new SSDB();
 define('NAME', $db->getSetting($mysqli, 'name'));

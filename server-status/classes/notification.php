@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/queue.php';
+require_once __DIR__ . '/queue.php';
 
 /**
  * Class that encapsulates everything that can be done with notifications.
@@ -66,7 +66,7 @@ class notification
         // Fetch list of unique subscribers for given service
         // Direct inclusion of variable without using prepare justified by the fact that
         // this->serviceids are not user submitted
-        $sql = 'SELECT DISTINCT subscriberIDFK FROM services_subscriber WHERE serviceIDFK IN ('.$this->serviceids.')';
+        $sql = 'SELECT DISTINCT subscriberIDFK FROM services_subscriber WHERE serviceIDFK IN (' . $this->serviceids . ')';
         $query = $mysqli->query($sql);
 
         // Create the queue tasks for email/telegram notifications
@@ -144,7 +144,7 @@ class notification
         $msg = sprintf($msg, $firstname);
 
         $tg_message = ['text' => $msg, 'chat_id' => $userID, 'parse_mode' => 'HTML'];
-        $json = @file_get_contents('https://api.telegram.org/bot'.TG_BOT_API_TOKEN.'/sendMessage?'.http_build_query($tg_message));
+        $json = @file_get_contents('https://api.telegram.org/bot' . TG_BOT_API_TOKEN . '/sendMessage?' . http_build_query($tg_message));
 
         $response = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
@@ -192,7 +192,7 @@ class notification
         $str_mail = str_replace('%unsubscribe%', _('Unsubscribe'), $str_mail);
         $str_mail = str_replace('%powered_by%', _('Powered by'), $str_mail);
 
-        $subject = _('Status update from').' - '.NAME.' [ '.$this->status.' ]';
+        $subject = _('Status update from') . ' - ' . NAME . ' [ ' . $this->status . ' ]';
 
         $val = [];
         $val['subject'] = $subject;

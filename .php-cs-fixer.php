@@ -34,7 +34,9 @@ $config
         'general_phpdoc_annotation_remove' => ['annotations' => ['expectedDeprecation']],
         // 'header_comment' => ['header' => $header],
         'modernize_strpos' => true, // needs PHP 8+ or polyfill
-        'no_useless_concat_operator' => false, // TODO switch back on when the `src/Console/Application.php` no longer needs the concat
+        // TODO switch back on when the `src/Console/Application.php` no longer needs the concat
+        'no_useless_concat_operator' => false,
+        'concat_space' => ['spacing' => 'one'],
         'static_lambda' => true,
     ])
     ->setFinder($finder)

@@ -50,12 +50,12 @@ if (isset($message)) {
 while ($result = $query->fetch_assoc()) {
     echo '<tr>';
     // echo "<td>".$result['id']."</td>";
-    echo '<td><a href="'.WEB_URL.'/admin?do=edit-service&id='.$result['id'].'">'.$result['name'].'</a></th>';
-    echo '<td>'.$result['description'].'</td>';
-    echo '<td>'.$result['group_name'].'</td>';
+    echo '<td><a href="' . WEB_URL . '/admin?do=edit-service&id=' . $result['id'] . '">' . $result['name'] . '</a></th>';
+    echo '<td>' . $result['description'] . '</td>';
+    echo '<td>' . $result['group_name'] . '</td>';
 
     if ($user->get_rank() <= 1) {
-        echo '<td><a href="'.WEB_URL.'/admin/?do=settings&type=service&delete='.$result['id'].'" class="pull-right delete-service"><i class="fa fa-trash"></i></a></td>';
+        echo '<td><a href="' . WEB_URL . '/admin/?do=settings&type=service&delete=' . $result['id'] . '" class="pull-right delete-service"><i class="fa fa-trash"></i></a></td>';
     }
 
     echo '</tr>';
@@ -97,13 +97,13 @@ $query = $mysqli->query('SELECT sg.* , (SELECT COUNT(*) FROM services WHERE serv
 while ($result = $query->fetch_assoc()) {
     echo '<tr>';
     // echo "<td>".$result['id']."</td>";
-    echo '<td><a href="'.WEB_URL.'/admin?do=edit-service-group&id='.$result['id'].'">'.$result['name'].'</a></th>';
-    echo '<td> <span class="badge badge-danger ml-2">'.$result['counter'].'</span>';
-    echo '<td>'.$result['description'].'</td>';
-    echo '<td>'.$visibility[$result['visibility']].'</td>';
+    echo '<td><a href="' . WEB_URL . '/admin?do=edit-service-group&id=' . $result['id'] . '">' . $result['name'] . '</a></th>';
+    echo '<td> <span class="badge badge-danger ml-2">' . $result['counter'] . '</span>';
+    echo '<td>' . $result['description'] . '</td>';
+    echo '<td>' . $visibility[$result['visibility']] . '</td>';
 
     if ($user->get_rank() <= 1) {
-        echo '<td><a href="'.WEB_URL.'/admin/?do=settings&type=groups&delete='.$result['id'].'" class="pull-right delete-service"><i class="fa fa-trash"></i></a></td>';
+        echo '<td><a href="' . WEB_URL . '/admin/?do=settings&type=groups&delete=' . $result['id'] . '" class="pull-right delete-service"><i class="fa fa-trash"></i></a></td>';
     }
 
     echo '</tr>';
@@ -128,13 +128,13 @@ while ($result = $query->fetch_assoc()) {
 	$query = $mysqli->query('SELECT *  FROM users');
 while ($result = $query->fetch_assoc()) {
     echo '<tr>';
-    echo '<td>'.$result['id'].'</td>';
-    echo "<td><a href='".WEB_URL.'/admin/?do=user&id='.$result['id']."'>".$result['username'].'</a></td>';
-    echo '<td>'.$result['name'].'</td>';
-    echo '<td>'.$result['surname'].'</td>';
-    echo '<td><a href="mailto:'.$result['email'].'">'.$result['email'].'</a></td>';
-    echo '<td>'.$permissions[$result['permission']].'</td><td>';
-    echo "<i class='fa fa-".($result['active'] ? 'check success' : 'times danger')."'></i>";
+    echo '<td>' . $result['id'] . '</td>';
+    echo "<td><a href='" . WEB_URL . '/admin/?do=user&id=' . $result['id'] . "'>" . $result['username'] . '</a></td>';
+    echo '<td>' . $result['name'] . '</td>';
+    echo '<td>' . $result['surname'] . '</td>';
+    echo '<td><a href="mailto:' . $result['email'] . '">' . $result['email'] . '</a></td>';
+    echo '<td>' . $permissions[$result['permission']] . '</td><td>';
+    echo "<i class='fa fa-" . ($result['active'] ? 'check success' : 'times danger') . "'></i>";
     echo '</td>';
     echo '</tr>';
 }

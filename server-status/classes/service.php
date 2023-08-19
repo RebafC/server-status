@@ -105,7 +105,7 @@ class service implements JsonSerializable
             $stmt->bind_param('ssi', $name, $description, $group_id);
             $stmt->execute();
             $stmt->get_result();
-            header('Location: '.WEB_URL.'/admin/?do=settings');
+            header('Location: ' . WEB_URL . '/admin/?do=settings');
         } else {
             $message = _("You don't have the permission to do that!");
         }
@@ -141,7 +141,7 @@ class service implements JsonSerializable
             $stmt->bind_param('ssii', $name, $description, $group_id, $service_id);
             $stmt->execute();
             $stmt->get_result();
-            header('Location: '.WEB_URL.'/admin/?do=settings');
+            header('Location: ' . WEB_URL . '/admin/?do=settings');
         } else {
             $message = _("You don't have the permission to do that!");
         }
@@ -178,7 +178,7 @@ class service implements JsonSerializable
             $stmt->execute();
             $query = $stmt->get_result();
 
-            header('Location: '.WEB_URL.'/admin/?do=settings');
+            header('Location: ' . WEB_URL . '/admin/?do=settings');
         } else {
             $message = _("You don't have the permission to do that!");
         }
@@ -203,7 +203,7 @@ class service implements JsonSerializable
             ++$statuses[$service->get_status()];
         }
 
-        echo '<div id="status-big" class="status '.$classes[$worst].'">';
+        echo '<div id="status-big" class="status ' . $classes[$worst] . '">';
 
         if ($statuses[$worst] === count($array)) {
             echo $all[$worst];
@@ -237,7 +237,7 @@ class service implements JsonSerializable
             echo '<ul class="list-group components">';
             // echo '<ul class="platforms list-group mb-2">';
             // Render the group status if it exists
-            echo '<li class="list-group-item list-group-item-success group-name"><span><i class="glyphicon glyphicon-plus"></i></span>&nbsp;'.$this->group_name.'<div class="status '.$classes[$this->status].'">'._($statuses[$this->status]).'</div></li>';
+            echo '<li class="list-group-item list-group-item-success group-name"><span><i class="glyphicon glyphicon-plus"></i></span>&nbsp;' . $this->group_name . '<div class="status ' . $classes[$this->status] . '">' . _($statuses[$this->status]) . '</div></li>';
             // echo '<li class="cist-group-item d-flex flex-row justify-content-between platform list-group-item-action py-0 expanded" role="button">' . $this->group_name .'<div class="status '. $classes[$this->status] .'"'. _($statuses[$this->status]).'</div></li>';
             $arrCompletedGroups[] = $this->group_name;
             $boolOpened = true;
@@ -251,10 +251,10 @@ class service implements JsonSerializable
         }
 
         // Render the service status
-        echo '<li class="list-group-item sub-component"><strong>'.$this->name.'</strong>';
+        echo '<li class="list-group-item sub-component"><strong>' . $this->name . '</strong>';
         // echo '<li class="list-group-item d-flex flex-columns justify-content-between><span>+</span><h3 class="py-2 my-0 flex-fill expanded">' . $this->name . '</h3>';
         if (!empty($this->description)) {
-            echo '<a class="desc-tool-tip" data-toggle="tooltip" data-placement="top" title="'.$this->description.'"> <span><i class="glyphicon glyphicon-question-sign"></i></span></a>';
+            echo '<a class="desc-tool-tip" data-toggle="tooltip" data-placement="top" title="' . $this->description . '"> <span><i class="glyphicon glyphicon-question-sign"></i></span></a>';
         }
 
         if (-1 !== $this->status) {?><div class="status pull-right <?php echo $classes[$this->status]; ?>"><?php echo _($statuses[$this->status]); ?></div>

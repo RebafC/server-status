@@ -86,7 +86,7 @@ class user
      */
     public function get_name(): string
     {
-        return $this->name.' '.$this->surname;
+        return $this->name . ' ' . $this->surname;
     }
 
     /**
@@ -103,7 +103,7 @@ class user
             $stmt->bind_param('i', $this->id);
             $stmt->execute();
             $stmt->close();
-            header('Location: '.WEB_URL.'/admin/?do=user&id='.$id);
+            header('Location: ' . WEB_URL . '/admin/?do=user&id=' . $id);
         } else {
             $message = _("You don't have the permission to do that!");
         }
@@ -140,7 +140,7 @@ class user
             }
 
             if (isset($messages)) {
-                $message = 'Please enter '.implode(', ', $messages);
+                $message = 'Please enter ' . implode(', ', $messages);
 
                 return;
             }
@@ -182,7 +182,7 @@ class user
             }
 
             $salt = uniqid(random_int(0, mt_getrandmax()), true);
-            $hash = hash('sha256', $pass.$salt);
+            $hash = hash('sha256', $pass . $salt);
             $permission = $_POST['permission'];
 
             $stmt = $mysqli->prepare('INSERT INTO users values (NULL, ?, ?, ?, ?, ?, ?, ?, 1)');
@@ -196,16 +196,16 @@ class user
             }
 
             $to = $email;
-            $subject = _('User account created').' - '.NAME;
-            $msg = sprintf(_('Hi %s!<br>'.'Your account has been created. You can login with your email address at <a href="%s">%s</a> with password %s - please change it as soon as possible.'), $name.' '.$surname, WEB_URL.'/admin', WEB_URL.'/admin', $pass);
-            $headers = 'Content-Type: text/html; charset=utf-8 '.PHP_EOL;
-            $headers .= 'MIME-Version: 1.0 '.PHP_EOL;
-            $headers .= 'From: '.MAILER_NAME.' <'.MAILER_ADDRESS.'>'.PHP_EOL;
-            $headers .= 'Reply-To: '.MAILER_NAME.' <'.MAILER_ADDRESS.'>'.PHP_EOL;
+            $subject = _('User account created') . ' - ' . NAME;
+            $msg = sprintf(_('Hi %s!<br>' . 'Your account has been created. You can login with your email address at <a href="%s">%s</a> with password %s - please change it as soon as possible.'), $name . ' ' . $surname, WEB_URL . '/admin', WEB_URL . '/admin', $pass);
+            $headers = 'Content-Type: text/html; charset=utf-8 ' . PHP_EOL;
+            $headers .= 'MIME-Version: 1.0 ' . PHP_EOL;
+            $headers .= 'From: ' . MAILER_NAME . ' <' . MAILER_ADDRESS . '>' . PHP_EOL;
+            $headers .= 'Reply-To: ' . MAILER_NAME . ' <' . MAILER_ADDRESS . '>' . PHP_EOL;
 
             mail($to, $subject, $msg, $headers);
             if (!INSTALL_OVERRIDE) {
-                header('Location: '.WEB_URL.'/admin/?do=settings');
+                header('Location: ' . WEB_URL . '/admin/?do=settings');
             }
         } else {
             $message = _("You don't have the permission to do that!");
@@ -257,7 +257,7 @@ class user
             return;
         }
 
-        $hash = hash('sha256', $pass.$salt);
+        $hash = hash('sha256', $pass . $salt);
         $stmt = $mysqli->prepare('SELECT count(*) as count FROM users WHERE id=? AND password_hash=?');
         $stmt->bind_param('is', $id, $hash);
         $stmt->execute();
@@ -278,7 +278,7 @@ class user
         }
 
         $_SESSION['user'] = $id;
-        header('Location: '.WEB_URL.'/admin');
+        header('Location: ' . WEB_URL . '/admin');
     }
 
     /**
@@ -347,7 +347,7 @@ class user
         <?php
       } else {
           ?>
-         <h3><?php echo $this->name.' '.$this->surname; ?></h3>
+         <h3><?php echo $this->name . ' ' . $this->surname; ?></h3>
         <?php
       }
         ?>
@@ -366,9 +366,9 @@ class user
             </span>
           </div>
         <?php
-        } else {?><?php echo $this->username.' ';
+        } else {?><?php echo $this->username . ' ';
             if ($user->get_rank() >= 1) {
-                echo "<i class='fa fa-".($this->active ? 'check success' : 'times danger')."'></i>";
+                echo "<i class='fa fa-" . ($this->active ? 'check success' : 'times danger') . "'></i>";
             }
         }
         ?>
@@ -382,7 +382,7 @@ class user
         <div class="col-md-6"><?php if (0 === $user->get_rank() && $this->id !== $_SESSION['user']) {?>
         <div class="input-group"><select class="form-control" name="permission">
         <?php foreach ($permissions as $key => $value) {
-            echo sprintf("<option value='%s' ", $key).($key === $this->rank ? 'selected' : '').sprintf('>%s</option>', $value);
+            echo sprintf("<option value='%s' ", $key) . ($key === $this->rank ? 'selected' : '') . sprintf('>%s</option>', $value);
         }
             ?>
         </select><span class="input-group-btn">
@@ -445,9 +445,9 @@ class user
       <div class="col-md-6">
         <?php
         if ($this->active) {
-            echo '<a href="'.WEB_URL.'/admin/?do=user&id='.$this->id.'&what=toggle" class="btn btn-danger">'._('Deactivate user').'</a>';
+            echo '<a href="' . WEB_URL . '/admin/?do=user&id=' . $this->id . '&what=toggle" class="btn btn-danger">' . _('Deactivate user') . '</a>';
         } else {
-            echo '<a href="'.WEB_URL.'/admin/?do=user&id='.$this->id.'&what=toggle" class="btn btn-success">'._('Activate user').'</a>';
+            echo '<a href="' . WEB_URL . '/admin/?do=user&id=' . $this->id . '&what=toggle" class="btn btn-success">' . _('Activate user') . '</a>';
         }
       ?>
       </div>
@@ -481,7 +481,7 @@ class user
             $stmt->bind_param('si', $_POST['username'], $id);
             $stmt->execute();
             $stmt->close();
-            header('Location:  '.WEB_URL.'/admin/?do=user&id='.$id);
+            header('Location:  ' . WEB_URL . '/admin/?do=user&id=' . $id);
         }
     }
 
@@ -499,7 +499,7 @@ class user
             $messages[] = _('Surname');
         }
 
-        $message = 'Please enter '.implode(', ', $messages);
+        $message = 'Please enter ' . implode(', ', $messages);
     }
 
     /**
@@ -530,7 +530,7 @@ class user
 
                 $salt = $result['salt'];
                 $pass = $_POST['old_password'];
-                $hash = hash('sha256', $pass.$salt);
+                $hash = hash('sha256', $pass . $salt);
 
                 $stmt = $mysqli->prepare('SELECT count(*) as count FROM users WHERE id=? AND password_hash = ?');
                 $stmt->bind_param('is', $id, $hash);
@@ -538,7 +538,7 @@ class user
 
                 if ($stmt->get_result()->fetch_assoc()['count']) {
                     $pass = $_POST['password'];
-                    $hash = hash('sha256', $pass.$salt);
+                    $hash = hash('sha256', $pass . $salt);
                     $stmt = $mysqli->prepare('UPDATE users SET password_hash = ? WHERE id=?');
                     $stmt->bind_param('si', $hash, $id);
                     $stmt->execute();
@@ -564,7 +564,7 @@ class user
 
                 $salt = $result['salt'];
                 $pass = $_POST['password'];
-                $hash = hash('sha256', $pass.$salt);
+                $hash = hash('sha256', $pass . $salt);
 
                 $stmt = $mysqli->prepare('UPDATE users SET password_hash = ? WHERE id=?');
                 $stmt->bind_param('si', $hash, $id);
@@ -602,15 +602,15 @@ class user
 
         $token = Token::add($id, 'passwd', $time);
 
-        $link = WEB_URL.sprintf('/admin/?do=lost-password&id=%s&token=%s', $id, $token);
+        $link = WEB_URL . sprintf('/admin/?do=lost-password&id=%s&token=%s', $id, $token);
         $to = $email;
         $self = new self($id);
-        $subject = _('Reset password').' - '.NAME;
+        $subject = _('Reset password') . ' - ' . NAME;
         $msg = sprintf(_("Hi %s!<br>Below you will find link to change your password. The link is valid for 24hrs. If you didn't request this, feel free to ignore it. <br><br><a href=\"%s\">RESET PASSWORD</a><br><br>If the link doesn't work, copy &amp; paste it into your browser: <br>%s"), $self->get_name(), $link, $link);
-        $headers = 'Content-Type: text/html; charset=utf-8 '.PHP_EOL;
-        $headers .= 'MIME-Version: 1.0 '.PHP_EOL;
-        $headers .= 'From: '.MAILER_NAME.' <'.MAILER_ADDRESS.'>'.PHP_EOL;
-        $headers .= 'Reply-To: '.MAILER_NAME.' <'.MAILER_ADDRESS.'>'.PHP_EOL;
+        $headers = 'Content-Type: text/html; charset=utf-8 ' . PHP_EOL;
+        $headers .= 'MIME-Version: 1.0 ' . PHP_EOL;
+        $headers .= 'From: ' . MAILER_NAME . ' <' . MAILER_ADDRESS . '>' . PHP_EOL;
+        $headers .= 'Reply-To: ' . MAILER_NAME . ' <' . MAILER_ADDRESS . '>' . PHP_EOL;
 
         mail($to, $subject, $msg, $headers);
     }
@@ -630,7 +630,7 @@ class user
             $stmt->bind_param('sd', $email, $id);
             $stmt->execute();
             $stmt->get_result();
-            header('Location: '.WEB_URL.'/admin/?do=user&id='.$id);
+            header('Location: ' . WEB_URL . '/admin/?do=user&id=' . $id);
 
             return;
         }
@@ -639,14 +639,14 @@ class user
 
         $token = Token::add($id, 'email;$email', $time);
 
-        $link = WEB_URL.sprintf('/admin/?do=change-email&id=%d&token=%s', $id, $token);
+        $link = WEB_URL . sprintf('/admin/?do=change-email&id=%d&token=%s', $id, $token);
         $to = $email;
-        $subject = _('Email change').' - '.NAME;
+        $subject = _('Email change') . ' - ' . NAME;
         $msg = sprintf(_("Hi %s!<br>Below you will find link to change your email. The link is valid for 24hrs. If you didn't request this, feel free to ignore it. <br><br><a href=\"%s\">CHANGE EMAIL</a><br><br>If the link doesn't work, copy &amp; paste it into your browser: <br>%s"), $user->get_name(), $link, $link);
-        $headers = 'Content-Type: text/html; charset=utf-8 '.PHP_EOL;
-        $headers .= 'MIME-Version: 1.0 '.PHP_EOL;
-        $headers .= 'From: '.MAILER_NAME.' <'.MAILER_ADDRESS.'>'.PHP_EOL;
-        $headers .= 'Reply-To: '.MAILER_NAME.' <'.MAILER_ADDRESS.'>'.PHP_EOL;
+        $headers = 'Content-Type: text/html; charset=utf-8 ' . PHP_EOL;
+        $headers .= 'MIME-Version: 1.0 ' . PHP_EOL;
+        $headers .= 'From: ' . MAILER_NAME . ' <' . MAILER_ADDRESS . '>' . PHP_EOL;
+        $headers .= 'Reply-To: ' . MAILER_NAME . ' <' . MAILER_ADDRESS . '>' . PHP_EOL;
 
         mail($to, $subject, $msg, $headers);
 
@@ -672,7 +672,7 @@ class user
             $stmt->execute();
             $stmt->get_result();
             Token::delete($token);
-            header('Location: '.WEB_URL.'/admin/');
+            header('Location: ' . WEB_URL . '/admin/');
         } else {
             $message = _('Invalid token detected, please retry your request from start!');
         }
@@ -695,7 +695,7 @@ class user
             setcookie('token', null, ['expires' => -1, 'path' => '/']);
         }
 
-        header('Location: '.WEB_URL.'/admin');
+        header('Location: ' . WEB_URL . '/admin');
     }
 
     /**
@@ -710,7 +710,7 @@ class user
             $stmt = $mysqli->prepare('UPDATE users SET permission=? WHERE id=?');
             $stmt->bind_param('si', $permission, $id);
             $stmt->execute();
-            header('Location: '.WEB_URL.'/admin/?do=user&id='.$id);
+            header('Location: ' . WEB_URL . '/admin/?do=user&id=' . $id);
         } else {
             $message = _("You don't have permission to do that!");
         }

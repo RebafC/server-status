@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/notification.php';
+require_once __DIR__ . '/notification.php';
 
 /**
  * Class for creating and rendering an incident.
@@ -40,10 +40,10 @@ class incident implements JsonSerializable
         $this->id = $data['status_id'];
         $this->timestamp = $data['time'];
         $this->end_timestamp = $data['end_time'];
-        $this->date = new DateTime('@'.$data['time']);
+        $this->date = new DateTime('@' . $data['time']);
         $this->date = $this->date->format('Y-m-d H:i:sP');
         if ($data['end_time'] > 0) {
-            $this->end_date = new DateTime('@'.$data['end_time']);
+            $this->end_date = new DateTime('@' . $data['end_time']);
             $this->end_date = $this->end_date->format('Y-m-d H:i:sP');
         }
 
@@ -87,7 +87,7 @@ class incident implements JsonSerializable
         $stmt->execute();
 
         $stmt->get_result();
-        header('Location: '.WEB_URL.'/admin');
+        header('Location: ' . WEB_URL . '/admin');
     }
 
     /**
@@ -187,7 +187,7 @@ class incident implements JsonSerializable
 
             $notification->notify_subscribers();
 
-            header('Location: '.WEB_URL.'/admin?sent=true');
+            header('Location: ' . WEB_URL . '/admin?sent=true');
         }
     }
 
@@ -210,7 +210,7 @@ class incident implements JsonSerializable
         <div class="panel-heading clearfix">
           <h2 class="panel-title"><?php echo $this->title; ?></h2>
           <?php if ($admin) {
-              echo '<a href="'.WEB_URL.'/admin/?delete='.$this->id.'" class="pull-right delete"><i class="fa fa-trash"></i></a>';
+              echo '<a href="' . WEB_URL . '/admin/?delete=' . $this->id . '" class="pull-right delete"><i class="fa fa-trash"></i></a>';
           }
         ?>
           <time class="pull-right timeago" datetime="<?php echo $this->date; ?>"><?php echo $this->date; ?></time>
@@ -222,7 +222,7 @@ class incident implements JsonSerializable
           <small>
               <?php echo _('Impacted service(s): ');
         foreach ($this->service_name as $value) {
-            echo '<span class="label label-default">'.$value.'</span>&nbsp;';
+            echo '<span class="label label-default">' . $value . '</span>&nbsp;';
         }
 
         if (null !== $this->end_date) {?>
