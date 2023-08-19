@@ -25,7 +25,8 @@ class Template{
        $str_url = strtolower($arr_url[count($arr_url)-2]);
        if ( 'admin' == $str_url ) {
            $strSubsMenu = '';
-       } else {
+          } else {
+         $strSubsMenu = '';
            if (SUBSCRIBE_EMAIL || SUBSCRIBE_TELEGRAM ) {
                // Subscriber menu is to be shown...
                $strSubsMenu = '<ul class="nav navbar-nav mr-auto">';
@@ -56,7 +57,7 @@ class Template{
       <html lang="en">
       <head>
        <?php
-       if(!admin){
+       if(!$admin){
         $headfile = fopen("head.txt", "r") or die("Unable to open head.txt!");
         $head_additionalcode = fread($versionfile,filesize("head.txt"));
         fclose($headfile);
