@@ -32,7 +32,9 @@ $finder = PhpCsFixer\Finder::create()
 $config = new PhpCsFixer\Config();
 $config
     ->setRiskyAllowed(true)
+    ->setIndent('    ')
     ->setRules([
+        '@PSR2' => true,
         '@PHP74Migration' => true,
         '@PHP74Migration:risky' => true,
         '@PHPUnit100Migration:risky' => true,

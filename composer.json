@@ -1,0 +1,13 @@
+{
+    "require-dev": {
+        "rector/rector": "^0.18.0"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "scripts": {
+        "rector-dr": "vendor/bin/rector --dry-run",
+        "rector":    "vendor/bin/rector"
+    }
+}
