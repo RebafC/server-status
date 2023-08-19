@@ -1,55 +1,76 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
 
 class SSDB
 {
-    function execute($conn,$sql){
-        if ($conn->query($sql) === TRUE) {
-        return true;
-        } else {
-        return $conn->error;
+    public function execute($conn, $sql)
+    {
+        if (true === $conn->query($sql)) {
+            return true;
         }
+
+        return $conn->error;
     }
-    function getSetting($conn,$setting){
+
+    public function getSetting($conn, $setting)
+    {
         $sql = "SELECT value FROM settings WHERE setting='".$setting."'";
         $result = $conn->query($sql);
 
-        if ($result->num_rows == 1) {
-            while($row = $result->fetch_assoc()) {
-                return $row["value"];
+        if (1 === $result->num_rows) {
+            while ($row = $result->fetch_assoc()) {
+                return $row['value'];
             }
         } else {
-            return "null";
+            return 'null';
         }
     }
-    function setSetting($conn,$settingname,$settingvalue){
+
+    public function setSetting($conn, $settingname, $settingvalue)
+    {
         $sql = "INSERT INTO settings (setting,value) VALUES ('".$settingname."','".$settingvalue."');";
-            if ($conn->query($sql) === TRUE) {
-                return true;
-            } else {
-                return $conn->error;
-            }
+        if (true === $conn->query($sql)) {
+            return true;
+        }
 
+        return $conn->error;
     }
-    function deleteSetting($conn,$settingname){
-        $sql = "DELETE FROM settings WHERE setting=\"".$settingname."\";";
-        if ($conn->query($sql) === TRUE) {
-                return true;
-            } else {
-                return $conn->error;
-            }
 
+    public function deleteSetting($conn, $settingname)
+    {
+        $sql = 'DELETE FROM settings WHERE setting="'.$settingname.'";';
+        if (true === $conn->query($sql)) {
+            return true;
+        }
+
+        return $conn->error;
     }
-    function updateSetting($conn, $settingname, $settingvalue){
+
+    public function updateSetting($conn, $settingname, $settingvalue)
+    {
         $this->deleteSetting($conn, $settingname);
         $this->setSetting($conn, $settingname, $settingvalue);
+
         return true;
     }
 
-    function getBooleanSetting($conn, $setting) {
-      if (trim($this->getSetting($conn, $setting)) == "yes"){
-        return true;
-      }
-      return false;
+    public function getBooleanSetting($conn, $setting)
+    {
+        if ('yes' === trim($this->getSetting($conn, $setting))) {
+            return true;
+        }
+
+        return false;
     }
 }
