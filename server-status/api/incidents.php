@@ -9,8 +9,8 @@ if (!file_exists('../config.php')) {
 
     require_once __DIR__ . '/../classes/constellation.php';
 
-    $limit = ($_GET['limit'] ?? 5);
-    $offset = ($_GET['offset'] ?? 0);
+    $limit = $_GET['limit'] ?? 5;
+    $offset = $_GET['offset'] ?? 0;
     $timestamp = $_GET['timestamp'] ?? time();
 
     $result = $constellation->get_incidents($_GET['future'] ?? false, $offset, $limit, $timestamp);

@@ -23,7 +23,7 @@ $negotiator = new LocaleNegotiator('en_GB');
 $message = '';
 $db = new SSDB();
 if (!isset($_SESSION['locale']) || isset($_GET['lang'])) {
-    $override = ($_GET['lang'] ?? null);
+    $override = $_GET['lang'] ?? null;
     $best_match = $negotiator->negotiate($override);
     $_SESSION['locale'] = $best_match;
     setlocale(LC_ALL, $_SESSION['locale'] . '.UTF-8');

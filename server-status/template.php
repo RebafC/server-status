@@ -41,21 +41,28 @@ class template
                 $strSubsMenu = '';
             } else {
                 $strSubsMenu = '';
-                if (SUBSCRIBE_EMAIL || SUBSCRIBE_TELEGRAM) {
+                if ((defined('SUBSCRIBE_EMAIL') && SUBSCRIBE_EMAIL) || (defined('SUBSCRIBE_TELEGRAM') && SUBSCRIBE_TELEGRAM)) {
                     // Subscriber menu is to be shown...
                     $strSubsMenu = '<ul class="nav navbar-nav mr-auto">';
+
                     // If subscriber is not logged on, display subscriber menus
                     if ((!isset($_SESSION['subscriber_valid'])) || false === $_SESSION['subscriber_valid']) {
                         $strSubsMenu .= '<li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><span class="glyphicon glyphicon-th"></span>&nbsp;' . _('Subscribe') . '</a>
-                                    <ul class="dropdown-menu ">';
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+                            <span class="glyphicon glyphicon-th"></span>&nbsp;' . _('Subscribe') . '</a>
+                            <ul class="dropdown-menu ">';
 
                         if (SUBSCRIBE_EMAIL) {
-                            $strSubsMenu .= '<li><a href="?do=email_subscription&amp;new=1"><span class="glyphicon glyphicon-envelope"></span>&nbsp;' . _('Subscribe via email') . '</a></li>';
+                            $strSubsMenu .= '<li><a href="?do=email_subscription&amp;new=1">
+                                <span class="glyphicon glyphicon-envelope"></span>&nbsp;' . _('Subscribe via email') .
+                                '</a></li>';
                         }
 
                         if (SUBSCRIBE_TELEGRAM) {
-                            $strSubsMenu .= '<li><a href="#"><script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="' . TG_BOT_USERNAME . '" data-size="small" data-userpic="false" data-auth-url="' . WEB_URL . '/telegram_check.php" data-request-access="write"></script></a></li>';
+                            $strSubsMenu .= '<li><a href="#">
+                                <script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="' .
+                                TG_BOT_USERNAME . '" data-size="small" data-userpic="false" data-auth-url="' .
+                                WEB_URL . '/telegram_check.php" data-request-access="write"></script></a></li>';
                         }
 
                         $strSubsMenu .= '</ul>';
@@ -65,7 +72,8 @@ class template
                 // If subscriber is logged on, display unsub and logoff menu points
                 if ((isset($_SESSION['subscriber_valid'])) && $_SESSION['subscriber_valid']) {
                     $strSubsMenu .= '<li><a href="?do=subscriptions">' . _('Subscriptions') . '</a></li>';
-                    $strSubsMenu .= '<li><a href="' . WEB_URL . '/index.php?subscriber_logout=1">' . _('Logout') . '</a></li>';
+                    $strSubsMenu .= '<li><a href="' . WEB_URL . '/index.php?subscriber_logout=1">'
+                        . _('Logout') . '</a></li>';
                 }
 
                 $strSubsMenu .= '</ul>';
@@ -75,12 +83,15 @@ class template
       <html lang="en">
       <head>
        <?php
-             if (!$admin) {
-                 $headfile = fopen('head.txt', 'r') || exit('Unable to open head.txt!');
-                 $head_additionalcode = fread($versionfile, filesize('head.txt'));
-                 fclose($headfile);
-                 echo $head_additionalcode;
-             }
+            if (!$admin) {
+                $headfile = fopen('head.txt', 'r');
+                if (false === $headfile) {
+                    exit('Unable to open head.txt!');
+                }
+                $head_additionalcode = fread($headfile, filesize('head.txt'));
+                fclose($headfile);
+                echo $head_additionalcode;
+            }
             ?>
         <meta charset="utf-8">
         <title><?php echo $page_name . ' - ' . NAME; ?></title>
@@ -274,7 +285,7 @@ class template
     ?>
     <script src="<?php echo WEB_URL; ?>/js/vendor/bootstrap.min.js"></script>
     <script src="<?php echo WEB_URL; ?>/js/main.js"></script>
-    <?php if (GOOGLE_RECAPTCHA) { ?><script src='https://www.google.com/recaptcha/api.js'></script><?php }
+    <?php if (defined('GOOGLE_RECAPTCHA') && GOOGLE_RECAPTCHA) { ?><script src='https://www.google.com/recaptcha/api.js'></script><?php }
     ?>
   </body>
   </html>
