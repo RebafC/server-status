@@ -191,6 +191,7 @@ $preq_ok = ['ok', 'success'];
 
 $preq_phpver = $preq_fail;
 $preq_mysqlnd = $preq_fail;
+$preq_gettext = $preq_fail;
 $preq_writedir = $preq_fail;
 
 // Check if PHP version if > MINIMUM_PHP_VERSION
@@ -206,6 +207,10 @@ if (function_exists('mysqli_get_client_stats')) {
     $preq_mysqlnd = $preq_ok;
 }
 
+if (extension_loaded('gettext')) {
+    $preq_gettext = $preq_ok;
+}
+
 // Check if we have access to write to location
 if (is_writable(__DIR__)) {
     $preq_writedir = $preq_ok;
@@ -214,28 +219,37 @@ if (is_writable(__DIR__)) {
 ?>
     <section class="prereq-section clearfix">
   		<div class="container-fluid">
-			<div class="row ">
-		    	<div class="col-md-6 text-right"><label for="php version"><?php echo $php_version_req; ?></div>
-	            <div class="col-md-6"><a href="#" class="btn btn-<?php echo $preq_phpver[1]; ?>">
-                    <span class="glyphicon glyphicon-<?php echo $preq_phpver[0]; ?>"></span></a>
+			<div class="row col-xs-6">
+                <div class="row ">
+                    <div class="col-md-8 text-right"><label for="php version"><?php echo $php_version_req; ?>
+                        <a href="#" class="btn btn-<?php echo $preq_phpver[1]; ?>">
+                        <span class="glyphicon glyphicon-<?php echo $preq_phpver[0]; ?>"></span></a>
+                    </div>
                 </div>
-			</div>
-			<div class="row ">
-		    	<div class="col-md-6 text-right"
-                    ><label for="mysqlnd Library installed"><?php echo _('PHP mysqlnd library installed'); ?>
+                <div class="row ">
+                    <div class="col-md-8 text-right">
+                        <label for="mysqlnd Library installed"><?php echo _('PHP mysqlnd library installed'); ?>
+                        <a href="#" class="btn btn-<?php echo $preq_mysqlnd[1]; ?>">
+                        <span class="glyphicon glyphicon-<?php echo $preq_mysqlnd[0]; ?>"></span></a>
+                    </div>
                 </div>
-	            <div class="col-md-6"><a href="#" class="btn btn-<?php echo $preq_mysqlnd[1]; ?>">
-                    <span class="glyphicon glyphicon-<?php echo $preq_mysqlnd[0]; ?>"></span></a>
+            </div>
+            <div class="row col-xs-6">
+                <div class="row ">
+                    <div class="col-md-8 text-right">
+                        <label for="gettext extension installed"><?php echo _('PHP gettext extension installed'); ?>
+                        <a href="#" class="btn btn-<?php echo $preq_gettext[1]; ?>">
+                        <span class="glyphicon glyphicon-<?php echo $preq_gettext[0]; ?>"></span></a>
+                    </div>
                 </div>
-			</div>
-            <div class="row">
-				<div class="col-md-6 text-right">
-                    <label for="write_access"><?php echo _('Write access to web directory'); ?>
+                <div class="row">
+                    <div class="col-md-8 text-right">
+                        <label for="write_access"><?php echo _('Write access to web directory'); ?>
+                        <a href="#" class="btn btn-<?php echo $preq_writedir[1]; ?>">
+                        <span class="glyphicon glyphicon-<?php echo $preq_writedir[0]; ?>"></span></a>
+                    </div>
                 </div>
-	            <div class="col-md-6"><a href="#" class="btn btn-<?php echo $preq_writedir[1]; ?>">
-                    <span class="glyphicon glyphicon-<?php echo $preq_writedir[0]; ?>"></span></a>
-                </div>
-			</div>
+            </div>
 		</div>
 
 	</section>
@@ -248,16 +262,16 @@ if ('' !== $message) {
 	<?php
 }
 ?>
-<summary><?php echo _('We will ask you some basic questions about your website.' .
-    'Most of the settings can be later edited in the config.php file.'); ?></summary>
+<summary><?php echo _('We will ask you some basic questions about your website.
+    Most of the settings can be later edited in the config.php file.'); ?></summary>
 
 <form method="post" action="." class="clearfix install">
 	<section class="install-section clearfix">
 		<h2><?php echo _('Website details'); ?></h2>
-		<summary><?php echo _("We need a name for your status page (shown behind page title after the dash) ' .
-            'and a url of your server status installation ' .
-            '(i.e. <a href='#'>https://example.com/status</a> - without the trailing slash), ' .
-            'so we can mail users link for forgotten password etc..."); ?></summary>
+		<summary><?php echo _("We need a name for your status page (shown behind page title after the dash)
+            and a url of your server status installation
+            (i.e. <a href='#'>https://example.com/status</a> - without the trailing slash),
+            so we can mail users link for forgotten password etc..."); ?></summary>
 
 		<div class="form-group clearfix">
 			<div class="col-sm-6"><label for="servername"><?php echo _('Name'); ?>: </label>
